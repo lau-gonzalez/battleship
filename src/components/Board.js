@@ -12,18 +12,18 @@ class Board extends Component {
         return (
             <div className={props.className}>
                 <div>
-                    <table>
+                    <table className='table table-bordered'>
                         <thead>
-                            <tr className='tableOut'>
-                            <th></th>
-                            {columns.map(column => <th key={column}>{column}</th>)}
+                            <tr>
+                            <th scope='col'>#</th>
+                            {columns.map(column => <th scope='col' key={column}>{column}</th>)}
                             </tr>
                         </thead>
                         <tbody>                            
                             {board.map((row, rowIdx) => {
-                                return <tr key={rowIdx}><th className='tableOut'>{rows[rowIdx]}</th>
+                                return <tr key={rowIdx}><th scope='row'>{rows[rowIdx]}</th>
                                     {columns.map((col, colIdx) => {
-                                        return <td key={colIdx} className='tableCell'> {board[rowIdx][colIdx]}</td>
+                                        return <td key={colIdx}> {board[rowIdx][colIdx]}</td>
                                     })}</tr>
                             })}
                         </tbody>

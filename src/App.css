@@ -10,14 +10,3 @@ table {
   table-layout: fixed;
   empty-cells: show;
 }
-
-.tableOut{
-  font-weight: 600;
-  background-color:lightgray;
-  text-align: center;
-}
-
-.tableCell{
-  border: 2px solid lightgrey;
-  text-align: center;
-}
