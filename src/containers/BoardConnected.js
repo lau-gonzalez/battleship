@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Board from '../components/Board';
+import Board from './../components/Board';
 import { preGameBoard } from '../actions/index';
 import { createSelector } from 'reselect';
 
