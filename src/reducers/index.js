@@ -18,6 +18,14 @@ function gameLogic (state = initialState, action ){
         case types.ADD_SHIP:            
             return Object.assign({}, state, {
                 playerBoard: helpers.getNewBoard(state.playerBoard, action)
+            })
+        case types.SELECT_SHIP:
+            return Object.assign({},state,{
+                selectedPiece: action.piece
+            })
+        case types.SELECT_POSITION:
+            return Object.assign({},state, {
+                selectedPosition: action.position
             })    
         default:
             return state

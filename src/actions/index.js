@@ -51,3 +51,20 @@ export const changeGamePhase = (phase) => {
       phase
     }
 }
+
+export const selectShip = (piece, position='vertical') => {
+    if (!piece) return;
+    return {
+        type: types.SELECT_SHIP,
+        piece,
+        position
+    }
+}
+
+export const selectPosition = (position) => {
+    if (!position) return;
+    return{
+        type: types.SELECT_POSITION,
+        position
+    }
+}
