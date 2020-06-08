@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Board from './../components/Board';
-import { preGameBoard } from '../actions/index';
+import { preGameBoard, battlePhase } from '../actions/index';
 import { createSelector } from 'reselect';
 
 const visiblePlayerBoard = (state) => state.gameLogic.playerBoard;
@@ -65,7 +65,8 @@ const mapStateToProps = state => {
     enemyBoard: getEnemyBoard(state),
     selectedPiece: selectedPiece,
     selectedPos: selectedPosition,
-    gamePhase: state.gamePhase
+    gamePhase: state.gamePhase,
+    getCursorOnEnter: () => getCursorOnEnter(state)
   }
 }
 
@@ -75,6 +76,8 @@ const mapDispatchToProps = dispatch => {
     onCellClick: (row, col, boardType, gamePhase) => {
       if (gamePhase === 'pregamePhase' && boardType === 'playerBoard') {
         dispatch(preGameBoard(row, col))
+      }else if(gamePhase === 'battle' && boardType === 'enemyBoard'){
+        dispatch(battlePhase(row,col))
       }   
     }
   }

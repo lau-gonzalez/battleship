@@ -1,28 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './App.css';
-import * as serviceWorker from './serviceWorker';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import { Provider } from 'react-redux';
-import Battleship from './reducers';
-import BattleshipGame from './components/BattleshipGame';
+import { store } from './store';
+import './App.css';
+import WelcomeScreen from './containers/WelcomeScreenConnected';
+import Options from './containers/OptionsConnected'
 
-
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-
-export const store = createStore(Battleship, composeEnhancers(applyMiddleware(thunk)));
 
 const App = () => (
-    <Provider store={store}>
-      <div>
-        <BattleshipGame />
-      </div>
+    <Provider store={store}>      
+      <Router >
+            <Switch>
+              <Route path="/options" component={Options} />    
+              <Route path="/" component={WelcomeScreen} />                    
+           </Switch>       
+      </Router>
     </Provider>  
   );
   
 ReactDOM.render(<App />, document.getElementById('root'));
-
-serviceWorker.unregister();

@@ -1,18 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './Header'
 import Options from './Options';
+import WelcomeScreenConnected from './../containers/WelcomeScreenConnected';
 
-class Battleship extends Component {
-    render() {
+function BattleshipGame (props) {   
         return (
             <div className="container-fluid">
-                <div className="container">
+                {!props.inputName ? <WelcomeScreenConnected/> :
+                <div className="container">                    
                     <Header />
                     <Options/>                                    
-                </div>
+                </div>            
+                }   
             </div>
         );
-    }
+    
 }
 
-export default Battleship;
+export default BattleshipGame;

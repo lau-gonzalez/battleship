@@ -15,15 +15,20 @@ class Board extends Component {
                     <table className='table table-bordered'>
                         <thead>
                             <tr>
-                            <th scope='col'>#</th>
-                            {columns.map(column => <th scope='col' key={column}>{column}</th>)}
+                                <th scope='col'>#</th>
+                                {columns.map(column => <th scope='col' key={column}>{column}</th>)}
                             </tr>
                         </thead>
-                        <tbody>                            
+                        <tbody>
                             {board.map((row, rowIdx) => {
                                 return <tr key={rowIdx}><th scope='row'>{rows[rowIdx]}</th>
                                     {columns.map((col, colIdx) => {
-                                        return <td key={colIdx}> {board[rowIdx][colIdx]}</td>
+                                        return <td
+                                            className='td'
+                                            key={colIdx}
+                                            onClick={() => props.onCellClick(rowIdx, colIdx, props.boardType, props.gamePhase)}>
+                                            {board[rowIdx][colIdx]}
+                                        </td>
                                     })}</tr>
                             })}
                         </tbody>

@@ -15,16 +15,20 @@ export const createBoard = (board) => {
 
 export const getNewBoard = (board, action) => {
   const newBoard = createBoard(board);
-  const newPiece = {piece: action.piece, pos: action.pos, hit: false, show: false}
+  const newPiece = {piece: action.piece, pos: action.pos, hit: false, show: false}  
   if (action.pos === 'horizontal') {
     for (let n = 0; n < gamePieces[action.piece]; n++) {
       newBoard[action.row][n + action.col] = newPiece;
+      
     }
   } else {
     for (let m = 0; m < gamePieces[action.piece]; m++) {
       newBoard[m + action.row][action.col] = newPiece;
+      
     }
   }
+  
+  
   return newBoard;
 }
 
@@ -101,4 +105,18 @@ export const getRandomNumber = (min, max) => {
 
 export const getRandomPosition = function() {
   return Math.random() > 1 ? 'horizontal' : 'vertical'
+}
+
+export const isShipDestroyed = (spot, fleets) =>{
+  const shipName = spot.piece;
+  for (let i = 0; i < fleets.length; i++) {
+    if(fleets[i][0] === shipName){
+      if (fleets[i][1] === fleets[i][2]) {
+        return true
+      }else{
+        return false
+      }
+    }    
+  }
+  return;
 }

@@ -10,3 +10,14 @@ table {
   table-layout: fixed;
   empty-cells: show;
 }
+
+.welcome{
+  width: 100vw;
+  height: 100vh;
+}
+
+h1{
+  font-size: 48px;
+  font-weight: bold;
+}
+
