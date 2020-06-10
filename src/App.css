@@ -25,6 +25,10 @@ img{
   width: 250px;
 }
 
+.options{
+  min-width: 360px;
+}
+
 td > p{
   text-align: center;
   background-color: lightslategrey;
@@ -55,4 +59,12 @@ td > ol{
   color: rgb(255, 41, 41) ;
   align-items: center;
   margin: 0;
+}
+
+@media (max-width: 540px){
+
+  td,th{
+    padding: 0 !important;
+  }
+
 }
