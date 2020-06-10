@@ -61,7 +61,7 @@ td > ol{
   margin: 0;
 }
 
-@media (max-width: 540px){
+@media (max-width: 1024px){
 
   td,th{
     padding: 0 !important;

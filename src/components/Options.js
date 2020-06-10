@@ -2,7 +2,6 @@ import React from 'react'
 import ButtonShip from './../containers/ButtonShipConnected'
 import ButtonPosition from './../containers/ButtonPositionConnected'
 import BoardConnected from './../containers/BoardConnected'
-import { Link } from 'react-router-dom';
 
 
 export default function Options(props) {
@@ -44,10 +43,8 @@ export default function Options(props) {
             </div>
             <div className='d-flex flex-row justify-content-end mb-3'>
                 <h3 className='mr-3'>Playing: {props.player}</h3>
-                <button className='btn btn-secondary mr-4'>
-                    <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
-                        Surrender
-                        </Link>
+                <button className='btn btn-secondary mr-4' onClick={() => {props.history.push('/'); window.location.reload(true); }}>
+                    Surrender
                 </button>
             </div>
         </div>
