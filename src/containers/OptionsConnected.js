@@ -4,14 +4,12 @@ import Options from './../components/Options'
 const mapStateToProps = state =>{
     return{
         inputName: state.gameLogic.inputName,
+        gamePhase: state.gamePhase,
+        player: state.gameLogic.turn
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {}
-}
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(Options)

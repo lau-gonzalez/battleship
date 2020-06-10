@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import React from 'react'
 import Board from './../components/Board';
 import { preGameBoard, battlePhase } from '../actions/index';
 import { createSelector } from 'reselect';
@@ -12,14 +13,16 @@ const getSelectedPosition = (state) => state.gameLogic.selectedPosition;
 const getPlayerBoard = createSelector(
   [visiblePlayerBoard],
   (board) => {
-    return board.map( (row, rowIdx) => {
-      return row.map( (spot, colIdx) => {
+    return board.map((row, rowIdx) => {
+      return row.map((spot, colIdx) => {
         if (!spot.hit && spot.piece !== 'E') {
-          return spot.piece;
+          return <p>{'[ ]'}</p>;
         } else if (spot.hit && spot.piece === 'E') {
-          return 'miss';
-        } else if (spot.hit && spot.piece !== 'E') {
-          return 'X';
+          return <ul>{'[ ]'}</ul>;
+        } else if (spot.show) {
+          return <ol>{'[ ]'}</ol>;
+        } else if (spot.hit && spot.piece !== 'E' && !spot.show) {
+          return <div>{'[ ]'}</div>;
         } else {
           return '';
         }
@@ -28,20 +31,22 @@ const getPlayerBoard = createSelector(
   }
 )
 
+
+
 const getEnemyBoard = createSelector(
   [visibleEnemyBoard],
   (board) => {
-    return board.map( (row, rowIdx) => {
-      return row.map( (spot, colIdx) => {
+    return board.map((row, rowIdx) => {
+      return row.map((spot, colIdx) => {
         if (!spot.hit) {
           return '';
         } else if (spot.hit && spot.piece === 'E') {
-          return 'miss';
-        } else if (spot.show){
-          return spot.piece;
+          return <ul>{'[ ]'}</ul>;
+        } else if (spot.show) {
+          return <ol>{'[ ]'}</ol>;
         } else {
-          return 'X'
-        }        
+          return <div>{'[ ]'}</div>
+        }
       })
     })
   }
@@ -54,12 +59,12 @@ const getCursorOnEnter = createSelector(
       document.getElementsByClassName('playerBoard')[0].style.cursor = 'copy'
     } else {
       document.getElementsByClassName('playerBoard')[0].style.cursor = 'pointer'
-    }     
+    }
   }
 )
 
 const mapStateToProps = state => {
-  const {selectedPiece, selectedPosition } = state.gameLogic;
+  const { selectedPiece, selectedPosition } = state.gameLogic;
   return {
     playerBoard: getPlayerBoard(state),
     enemyBoard: getEnemyBoard(state),
@@ -76,9 +81,9 @@ const mapDispatchToProps = dispatch => {
     onCellClick: (row, col, boardType, gamePhase) => {
       if (gamePhase === 'pregamePhase' && boardType === 'playerBoard') {
         dispatch(preGameBoard(row, col))
-      }else if(gamePhase === 'battle' && boardType === 'enemyBoard'){
-        dispatch(battlePhase(row,col))
-      }   
+      } else if (gamePhase === 'battle' && boardType === 'enemyBoard') {
+        dispatch(battlePhase(row, col))
+      }
     }
   }
 }

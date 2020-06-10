@@ -1,11 +1,20 @@
 import { gamePieces } from '../constants'
 
+
+//----------------------------------------------------------------------------------------------//
+
+//                                        Main functions
+
+//----------------------------------------------------------------------------------------------//
+
+//Creation Boards
+
 export const createBoard = (board) => {
     const newBoard = [];
     for (let m = 0; m < 10; m++) {
       let row = [];
       for (let n = 0; n < 10; n++) {
-        let piece = board ? board[m][n] : {piece: 'E', pos: null, hit: false, show: false};
+        let piece = board ? board[m][n] : {piece:'E', pos: null, hit: false, show: false};
         row.push(piece);
       }
       newBoard.push(row);
@@ -15,7 +24,7 @@ export const createBoard = (board) => {
 
 export const getNewBoard = (board, action) => {
   const newBoard = createBoard(board);
-  const newPiece = {piece: action.piece, pos: action.pos, hit: false, show: false}  
+  const newPiece = {piece: action.piece, pos: action.pos, hit: false, show: false} 
   if (action.pos === 'horizontal') {
     for (let n = 0; n < gamePieces[action.piece]; n++) {
       newBoard[action.row][n + action.col] = newPiece;
@@ -26,8 +35,7 @@ export const getNewBoard = (board, action) => {
       newBoard[m + action.row][action.col] = newPiece;
       
     }
-  }
-  
+  } 
   
   return newBoard;
 }
@@ -51,6 +59,17 @@ export const createBoardWithRandomPieces = () => {
   }
   return newBoard;
 }
+
+//END Creation Boards
+
+
+//----------------------------------------------------------------------------------------------//
+
+//                                         Auxiliary functions
+
+//----------------------------------------------------------------------------------------------//
+
+//Position functions
 
 export const getValidPosition = function(shipName, position, board) {
   let boardLength = 10;
@@ -99,13 +118,11 @@ export const checkRangeValid = function(row, column, spaces, position, board) {
   return true;
 }
 
-export const getRandomNumber = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) ) + min;
-}
+//END Position functions
 
-export const getRandomPosition = function() {
-  return Math.random() > 1 ? 'horizontal' : 'vertical'
-}
+//----------------------------------------------------------------------------------------------//
+
+//Attack functions
 
 export const isShipDestroyed = (spot, fleets) =>{
   const shipName = spot.piece;
@@ -120,3 +137,124 @@ export const isShipDestroyed = (spot, fleets) =>{
   }
   return;
 }
+
+export const decideWhichSpotToHit = (board, mode, firstSpotHit, lastSpotHit, direction, didComputerHitLastTurn) => {
+
+  let currentTargetDirection = direction;
+
+  if (mode === 'hunt') {
+    const { row, col } = destroyRandomSpotOnPlayerBoard(board);
+    return { row, col};
+  } else {
+    //target mode
+      let initialRow;
+      let initialColumn;
+      let row;
+      let col;
+
+      if (!didComputerHitLastTurn) {
+        initialRow = firstSpotHit[0];
+        initialColumn = firstSpotHit[1];
+      } else {
+        initialRow = lastSpotHit[0];
+        initialColumn = lastSpotHit[1];
+      }
+
+      let nextSpotIsInvalid = true;
+      let loopCount = 0;
+      do {
+        let {newRow, newCol} = mapDirectionToNextSpot(currentTargetDirection, initialRow, initialColumn);
+        row = newRow;
+        col = newCol;
+
+        if (board[row] && board[row][col] && !board[row][col].hit) {
+          nextSpotIsInvalid = false;
+        } else {
+          currentTargetDirection = getNextTargetDirection(currentTargetDirection);
+          loopCount++;
+          if (loopCount > 4) {
+            initialRow = firstSpotHit[0];
+            initialColumn = firstSpotHit[1];
+          }
+        }
+      } while (nextSpotIsInvalid)
+
+      return { row, col, currentTargetDirection };
+  }
+
+}
+
+export const getNextTargetDirection  = (targetDirection) => {
+  const directions = {
+    above: 'right',
+    right: 'below',
+    below: 'left',
+    left: 'above'
+  }
+  return directions[targetDirection];
+} 
+
+export const getOppositeTargetDirection = (targetDirection) => {
+  const directions = {
+    above: 'below',
+    left: 'right',
+    below: 'above',
+    right: 'left'
+  }
+
+  return directions[targetDirection];
+}
+
+export const mapDirectionToNextSpot = (direction, row, col) => {
+  let newRow = row;
+  let newCol = col;
+
+  if (direction === 'above') {
+    newRow = row - 1;
+    newCol = col    
+  } else if (direction === 'right') {
+    newRow = row;
+    newCol = col + 1;
+  } else if (direction ==='below') {
+    newRow = row + 1
+    newCol = col
+  } else if (direction === 'left') {
+    newRow = row;
+    newCol = col - 1
+  } 
+  return { newRow, newCol }
+}
+
+export const destroyRandomSpotOnPlayerBoard = (board) => {
+  let isSpaceOccupied = true;
+  let row;
+  let col;
+  while(isSpaceOccupied) {
+    row = getRandomNumber(0, 9);
+    col = getRandomNumber(0, 9);
+    if (!board[row][col].hit) {
+      isSpaceOccupied = false;
+    }
+  }
+  return { row, col }
+}
+
+//END Attack functions
+
+//----------------------------------------------------------------------------------------------//
+
+//Math functions
+
+export const getRandomNumber = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+export const getRandomPosition = function() {
+  return Math.random() > 1 ? 'horizontal' : 'vertical'
+}
+
+//END Math functions
+
+//----------------------------------------------------------------------------------------------//
+
+

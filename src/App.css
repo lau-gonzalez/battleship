@@ -21,3 +21,38 @@ h1{
   font-weight: bold;
 }
 
+img{
+  width: 250px;
+}
+
+td > p{
+  text-align: center;
+  background-color: lightslategrey;
+  color: lightslategrey ;
+  align-items: center;
+  margin: 0;
+}
+
+td > div{
+  text-align: center;
+  background-color: rgb(241, 241, 53);
+  color: rgb(241, 241, 53) ;
+  align-items: center;
+  margin: 0;
+}
+
+td > ul{
+  text-align: center;
+  background-color: rgb(62, 138, 236);
+  color: rgb(62, 138, 236) ;
+  align-items: center;
+  margin: 0;
+}
+
+td > ol{
+  text-align: center;
+  background-color: rgb(255, 41, 41);
+  color: rgb(255, 41, 41) ;
+  align-items: center;
+  margin: 0;
+}
