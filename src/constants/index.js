@@ -1,10 +1,12 @@
+/* eslint-disable max-len */
+/* eslint linebreak-style: ["error", "windows"] */
 export const gamePieces = {
-    'CR': 4,
-    'C1': 3, 
-    'C2': 3,
-    'C3': 3,
-    'S': 2
-}
+  CR: 4,
+  C1: 3,
+  C2: 3,
+  C3: 3,
+  S: 2,
+};
 
 export const ADD_SCORE = 'ADD_SCORE';
 export const ADD_SHIP = 'ADD_SHIP';
@@ -27,4 +29,5 @@ export const SELECT_SHIP = 'SELECT_SHIP';
 export const START_GAME = 'START_GAME';
 export const PLAYER_NAME = 'Player';
 export const ENEMY_NAME = 'Computer';
-export const INPUT_NAME = 'INPUT_NAME'
+export const INPUT_NAME = 'INPUT_NAME';
+export const MESSAGE_ERROR = 'MESSAGE_ERROR';
