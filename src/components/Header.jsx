@@ -38,7 +38,7 @@ export default function Header(props) {
         <ButtonPosition name="vertical" />
         <ButtonPosition name="horizontal" />
       </div>
-      <div className="alert alert-danger text-center" id="alert" role="alert">
+      <div className="alert alert-danger text-center mt-3" id="alert" role="alert">
         {messageError}
       </div>
     </div>
